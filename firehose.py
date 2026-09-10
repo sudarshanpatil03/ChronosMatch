@@ -28,3 +28,9 @@ async def firehose(num_orders: int, buffer: io.BytesIO):
 
         if i % 10000 == 0:
             await asyncio.sleep(0)
+
+    end_time = time.perf_counter()
+    duration = end_time - start_time
+    writes_per_sec = num_orders / duration
+    
+    return duration, writes_per_sec
