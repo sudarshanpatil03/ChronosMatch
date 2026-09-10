@@ -15,3 +15,13 @@ async def firehose(num_orders: int, buffer: io.BytesIO):
     order_type = b'L'
     
     start_time = time.perf_counter()
+
+    for i in range(num_orders):
+        buffer.write(ORDER_STRUCT.pack(
+            timestamp,
+            order_id + i,
+            price,
+            size,
+            side,
+            order_type
+        ))
