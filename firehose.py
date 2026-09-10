@@ -34,3 +34,21 @@ async def firehose(num_orders: int, buffer: io.BytesIO):
     writes_per_sec = num_orders / duration
     
     return duration, writes_per_sec
+
+async def main():
+    num_orders = 1_000_000
+    buffer = io.BytesIO()
+    
+    print(f"Starting market order firehose for {num_orders:,} orders...")
+    
+    duration, writes_per_sec = await firehose(num_orders, buffer)
+    
+    print(f"--- Results ---")
+    print(f"Total time:  {duration:.4f} seconds")
+    print(f"Buffer size: {buffer.tell():,} bytes")
+    print(f"Throughput:  {writes_per_sec:,.2f} writes/sec")
+    
+    if writes_per_sec >= 100000:
+        print("SUCCESS: Firehose achieved >= 100k writes/sec to the buffer.")
+    else:
+        print("FAILED: Firehose did NOT achieve 100k writes/sec.")
