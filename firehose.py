@@ -52,3 +52,6 @@ async def main():
         print("SUCCESS: Firehose achieved >= 100k writes/sec to the buffer.")
     else:
         print("FAILED: Firehose did NOT achieve 100k writes/sec.")
+
+if __name__ == '__main__':
+    asyncio.run(main())
