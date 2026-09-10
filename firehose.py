@@ -25,3 +25,6 @@ async def firehose(num_orders: int, buffer: io.BytesIO):
             side,
             order_type
         ))
+
+        if i % 10000 == 0:
+            await asyncio.sleep(0)
