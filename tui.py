@@ -15,3 +15,14 @@ def setup_curses(stdscr):
     stdscr.nodelay(1)  # Non-blocking getch
     init_colors()
 
+def simulate_market_activity(book: OrderBook, order_id_counter: int) -> int:
+    """Generate 100-500 random orders to simulate live market."""
+    num_orders = random.randint(100, 500)
+    for _ in range(num_orders):
+        side = SIDE_BID if random.random() > 0.5 else SIDE_ASK
+        price = round(45000.0 + random.uniform(-10, 10), 2)
+        size = random.randint(1, 10) * 10
+        book.add_order(order_id_counter, price, size, side)
+        order_id_counter += 1
+    return order_id_counter
+
