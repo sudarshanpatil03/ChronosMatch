@@ -26,3 +26,30 @@ def simulate_market_activity(book: OrderBook, order_id_counter: int) -> int:
         order_id_counter += 1
     return order_id_counter
 
+def draw_bbo_and_spread(stdscr, book: OrderBook, y: int, x: int):
+    best_bid = book.best_bid()
+    best_ask = book.best_ask()
+    spread = book.spread()
+    
+    stdscr.addstr(y, x, "--- Top of Book (BBO) ---", curses.color_pair(3) | curses.A_BOLD)
+    y += 1
+    
+    if best_ask:
+        stdscr.addstr(y, x, f"ASK: {best_ask[0]:.2f} x {best_ask[1]}", curses.color_pair(2))
+    else:
+        stdscr.addstr(y, x, "ASK: NONE", curses.color_pair(2))
+    y += 1
+    
+    if spread is not None:
+        stdscr.addstr(y, x, f"SPREAD: {spread:.2f}")
+    else:
+        stdscr.addstr(y, x, "SPREAD: N/A")
+    y += 1
+        
+    if best_bid:
+        stdscr.addstr(y, x, f"BID: {best_bid[0]:.2f} x {best_bid[1]}", curses.color_pair(1))
+    else:
+        stdscr.addstr(y, x, "BID: NONE", curses.color_pair(1))
+    
+    return y + 2
+
