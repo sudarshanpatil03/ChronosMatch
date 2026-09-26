@@ -112,3 +112,11 @@ def tui_loop(stdscr):
         if sleep_time > 0:
             time.sleep(sleep_time)
 
+def main():
+    try:
+        curses.wrapper(tui_loop)
+    except KeyboardInterrupt:
+        pass
+
+if __name__ == '__main__':
+    main()
