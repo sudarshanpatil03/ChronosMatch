@@ -77,3 +77,38 @@ def draw_depth(stdscr, book: OrderBook, y: int, x: int, levels: int = 10):
         
     return y
 
+def tui_loop(stdscr):
+    setup_curses(stdscr)
+    book = OrderBook()
+    order_id_counter = 1
+    
+    fps = 60
+    frame_time = 1.0 / fps
+    
+    while True:
+        start_time = time.perf_counter()
+        
+        # 1. Handle input
+        c = stdscr.getch()
+        if c == ord('q'):
+            break
+            
+        # 2. Update state
+        order_id_counter = simulate_market_activity(book, order_id_counter)
+        
+        # 3. Render
+        stdscr.erase()
+        stdscr.addstr(0, 0, f"ChronosMatch TUI | FPS Target: {fps} | Press 'q' to quit", curses.color_pair(3))
+        
+        y = 2
+        y = draw_bbo_and_spread(stdscr, book, y, 0)
+        draw_depth(stdscr, book, y, 0, levels=10)
+        
+        stdscr.refresh()
+        
+        # 4. Sleep to maintain FPS (non-blocking)
+        elapsed = time.perf_counter() - start_time
+        sleep_time = frame_time - elapsed
+        if sleep_time > 0:
+            time.sleep(sleep_time)
+
