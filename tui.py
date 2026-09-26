@@ -53,3 +53,27 @@ def draw_bbo_and_spread(stdscr, book: OrderBook, y: int, x: int):
     
     return y + 2
 
+def draw_depth(stdscr, book: OrderBook, y: int, x: int, levels: int = 10):
+    depth = book.depth(levels)
+    stdscr.addstr(y, x, f"--- Order Book Depth ({levels} levels) ---", curses.color_pair(3) | curses.A_BOLD)
+    y += 1
+    
+    stdscr.addstr(y, x, f"{'Price':<12} {'Size':<10}", curses.A_UNDERLINE)
+    y += 1
+    
+    # Asks (descending order on screen looks better)
+    asks = sorted(depth['asks'], reverse=True)
+    for p, s in asks:
+        stdscr.addstr(y, x, f"{p:<12.2f} {s:<10}", curses.color_pair(2))
+        y += 1
+        
+    stdscr.addstr(y, x, "-" * 23)
+    y += 1
+    
+    # Bids
+    for p, s in depth['bids']:
+        stdscr.addstr(y, x, f"{p:<12.2f} {s:<10}", curses.color_pair(1))
+        y += 1
+        
+    return y
+
