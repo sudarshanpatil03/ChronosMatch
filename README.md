@@ -1,4 +1,4 @@
-﻿# ChronosMatch
+# ChronosMatch
 
 High-throughput market-data pipeline spike — async Python, binary-packed order structs, in-memory order book.
 
@@ -24,6 +24,10 @@ High-throughput market-data pipeline spike — async Python, binary-packed order
 | _padding    | 2 B    | 2 B    | Struct alignment               |
 
 **Total: 32 bytes / order** (little-endian, `struct` format `<QQdIcc2x`)
+
+## Prerequisites
+
+- Python 3.8+ (no third-party dependencies required)
 
 ## Quick Start
 
