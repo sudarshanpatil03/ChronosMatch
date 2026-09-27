@@ -6,7 +6,11 @@ import io
 ORDER_FORMAT = '<QQdIcc2x'
 ORDER_STRUCT = struct.Struct(ORDER_FORMAT)
 
-async def firehose(num_orders: int, buffer: io.BytesIO):
+async def firehose(num_orders: int, buffer: io.BytesIO) -> tuple[float, float]:
+    """
+    Packs and writes a specified number of mock orders into a binary buffer.
+    Returns a tuple of (total_duration_seconds, writes_per_second).
+    """
     timestamp = int(time.time() * 1000)
     order_id = 1000000
     price = 45000.50
