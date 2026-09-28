@@ -1,4 +1,4 @@
-﻿import struct
+import struct
 import io
 import time
 from dataclasses import dataclass, field
@@ -83,6 +83,13 @@ class OrderBook:
         if bid is None or ask is None:
             return None
         return ask[0] - bid[0]
+
+    def mid_price(self):
+        bid = self.best_bid()
+        ask = self.best_ask()
+        if bid is None or ask is None:
+            return None
+        return (bid[0] + ask[0]) / 2.0
 
     def depth(self, levels: int = 5) -> dict:
         sorted_bids = sorted(self._bids.keys(), reverse=True)[:levels]
