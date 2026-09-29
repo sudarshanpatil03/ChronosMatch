@@ -99,6 +99,12 @@ class OrderBook:
             'asks': [(p, self._asks[p].total_size) for p in sorted_asks],
         }
 
+    def total_volume(self) -> dict:
+        """Calculate total volume resting on the order book for both sides."""
+        total_bid_vol = sum(level.total_size for level in self._bids.values())
+        total_ask_vol = sum(level.total_size for level in self._asks.values())
+        return {'bids': total_bid_vol, 'asks': total_ask_vol}
+
     def ingest_buffer(self, buffer: io.BytesIO) -> int:
         """Parse every binary-packed order from a firehose buffer."""
         buffer.seek(0)

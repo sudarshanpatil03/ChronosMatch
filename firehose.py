@@ -40,6 +40,12 @@ async def firehose(num_orders: int, buffer: io.BytesIO, initial_order_id: int = 
     return duration, writes_per_sec
 
 async def main():
+    # Set the benchmark size; default to 1 million orders to stress test the async packing.
+    # We use io.BytesIO here to eliminate network/disk overhead for baseline numbers.
+    # We might want to make this configurable via argparse in the future
+    # to test different batch sizes easily from the command line.
+    # The structure packs down to 32 bytes per order, so 1M orders = ~32MB buffer.
+    # Pre-allocating buffer space might yield further performance gains if needed.
     num_orders = 1_000_000
     buffer = io.BytesIO()
     
