@@ -139,9 +139,9 @@ if __name__ == '__main__':
     book = OrderBook()
     print('Ingesting buffer into order book ...')
 
-    t0      = time.perf_counter()
+    start_time = time.perf_counter()
     count   = book.ingest_buffer(buf)
-    elapsed = time.perf_counter() - t0
+    elapsed = time.perf_counter() - start_time
 
     rate = count / elapsed
     print()
