@@ -65,6 +65,10 @@ class OrderBook:
                 del book[price]
         return True
 
+    def get_order_info(self, order_id: int) -> Tuple[float, str, int]:
+        """Return the price, side, and size of a specific order."""
+        return self._orders.get(order_id)
+
     def best_bid(self):
         if not self._bids:
             return None
