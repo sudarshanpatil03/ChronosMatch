@@ -109,6 +109,13 @@ class OrderBook:
         total_ask_vol = sum(level.total_size for level in self._asks.values())
         return {'bids': total_bid_vol, 'asks': total_ask_vol}
 
+    def clear(self) -> None:
+        """Clear all orders from the order book."""
+        self._bids.clear()
+        self._asks.clear()
+        self._orders.clear()
+        self.total_orders = 0
+
     def ingest_buffer(self, buffer: io.BytesIO) -> int:
         """Parse every binary-packed order from a firehose buffer."""
         buffer.seek(0)
