@@ -1,10 +1,10 @@
-# =====================================================
+# ===================================================
 # ChronosMatch: Zero-Copy High-Frequency Trading Engine
 # Module: engine/__init__.py
 # Role:Person 1 (Low-Latency Core & Memory Architect)
 # Description:Engine module loader with seamless Cython compiled speedup and
 # pure-Python/ctypes fallback for zero-dependency execution.
-# ====================================================
+# ==================================================
 
 import struct
 import time
@@ -33,10 +33,10 @@ except ImportError:
     CYTHON_ACCELERATED = False
 
 if not CYTHON_ACCELERATED:
-    # ------------------------------------------------------------
+    # ----------------------------------------------------------
     # Pure-Python / Ctypes Compatible Fallback Implementation
     # Exact same 32-byte binary protocol, zero-copy layout, and nogil-style LOB
-    # ------------------------------------------------------------
+    # ----------------------------------------------------------
     class SPSCBufferWriter:
         def __init__(self, file_path: str, capacity: int = 1048576):
             self.file_path = file_path
