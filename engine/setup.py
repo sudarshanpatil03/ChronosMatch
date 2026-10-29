@@ -1,11 +1,11 @@
-# ===========================================
+# =========================================
 # ChronosMatch: Zero-Copy High-Frequency Trading Engine
 # Module: engine/setup.py
 # Role: Person 1 (Low-Latency Core & Memory Architect)
 # Description: Setuptools build script compiling Cython modules with aggressive
 #              compiler optimization flags (-O3, -march=native, -ffast-math) and
 #              generating Cython HTML profiling annotations (annotate=True).
-# ============================================
+# ==========================================
 
 import os
 import sys
@@ -16,7 +16,7 @@ try:
     from Cython.Build import cythonize
     from Cython.Compiler import Options
     Options.docstrings = True
-    Options.annotate = True  # Generate interactive HTML highlighting GIL interactions
+    Options.annotate = True  
 except ImportError:
     cythonize = None
 
